@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    
+  <!-- inner page banner -->
+  <div class="section inner_banner">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="full">
+                <h3>Error 404</h3>
+                <ul class="breadcrum">
+                   <li><a href="home_1.html">Home</a></li>
+                   <li>&gt;</li>
+                   <li>Error 404</li>
+                </ul>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end inner page banner -->
+ <!-- section -->
+ <div class="section layout_padding">
+    <div class="container">
+       <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+             <div class="center">
+                <div class="error_img"><img class="img-responsive margin_bottom_30_all" src="images/404_img.png" alt="#" width="650"/></div>
+             </div>
+             <div class="heading_normal text_align_center">
+                <h2>OOOPS, This page could not be found !</h2>
+                <p>The page you are looking for might have been removed, had its name changed, or is<br/>temporarily unavailable.</p>
+             </div>
+             <div class="center margin_top_50">
+                <a class="btn main_bt" href="home_1.html">Back Home</a>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end section -->
+
+{% endblock content %}
+    
