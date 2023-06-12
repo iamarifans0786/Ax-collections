@@ -74,37 +74,55 @@
                     <div class="price-box-bar">
                         <div class="price-box"> <span> ₹ {{ product.price }}</span></div>
                     </div>
-                    <ul class="clearfix">
-                        <li class=" text-success available-stock"> <span> {{ product.stock }} available</span> </li>
-
-                        <li>
-                            <div class="half_blog">
-                                <div class="form-group">
-                                    <label class="size-label">Size</label>
-                                    <select class="wide">
-                                        {% for variation in product.variation.all %}
-                                        <option value="0"> {{variation.name}} </option>
-                                        {% endfor %}
-                                    </select>
+                    <form method="post" action=" {% url 'AddToCartView' %} ">
+                        {% csrf_token %}
+                        <ul class="clearfix">
+                            <li class=" text-success available-stock"> <span> {{ product.stock }} available</span> </li>
+                            <input type="hidden" value="{{product.id}}" name="product_id">
+                            <li>
+                                <div class="half_blog">
+                                    <div class="form-group">
+                                        <label class="size-label">Size</label>
+                                        <select class="wide" name="variation_id">
+                                            {% for variation in product.variation.all %}
+                                            <option value="{{variation.id}}"> {{variation.name}} </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="half_blog">
-                                <div class="form-group quantity-box">
-                                    <label class="control-label">Quantity</label>
-                                    <input class="form-control" type="number" value="0" min="0" max="20" />
+                                <div class="half_blog">
+                                    <div class="form-group quantity-box">
+                                        <label class="control-label">Quantity</label>
+                                        <input class="form-control" type="number" value="1" min="0" max="5"
+                                            name="quantity" />
+                                    </div>
                                 </div>
+                            </li>
+                        </ul>
+                        <div class="add-to-btn">
+                            <div class="add-to-btn">
+                                {% if request.user.is_authenticated %}
+                                <div class="add-comp">
+                                    <button type="submit" class="hover-btn btn btn-info">
+                                        <span class="icon icon-cart"></span>
+                                        Add to cart
+                                    </button>
+                                </div>
+                                {% else %}
+                                <div class="add-comp">
+                                    <a class="hover-btn" href="{% url 'LoginView' %}">
+                                        <span class="icon icon-cart"></span>
+                                        Login
+                                    </a>
+                                </div>
+                                {% endif %}
                             </div>
-                        </li>
-                    </ul>
-                    <div class="add-to-btn">
-                        <div class="add-comp"> <a class="hover-btn" href="#"><span class="icon icon-cart"></span> Add to
-                                Cart</a>
+                            <div class="product-details-text"><br> <br>
+                                <h2>Product Description:</h2>
+                                <p>{{ product.description }}</p>
+                            </div>
                         </div>
-                        <div class="product-details-text"><br> <br>
-                            <h2>Product Description:</h2>
-                            <p>{{ product.description }}</p>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
             <div class="row my-5">

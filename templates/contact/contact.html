@@ -1,10 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-
-
-
 <!-- section -->
 <div class="section">
     <div class="container-fuild">
@@ -30,7 +26,8 @@
             <div class="col-lg-6 col-md-12">
                 <div class="contact_form">
                     <div class="contact-box">
-                        <form id="contact-form" class="form-horizontal" method="post">
+                        <form  class="form-horizontal" method="post">
+                            {% csrf_token %}
                             <div class="messages"></div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -71,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button class="btn btn-sub hover-btn"><span>Submit</span></button>
+                                    <button type="submit" class="btn btn-sub hover-btn"><span>Submit</span></button>
                                 </div>
                             </div>
                         </form>
@@ -81,9 +78,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="title"> <span>Contact Information</span> </div>
                 <div class="contact-info">
-
                     {% for address in address %}
-
                     <div class="address-box">
                         <h3>Address</h3>
                         <ul>
@@ -109,18 +104,12 @@
                             </li>
                         </ul>
                     </div>
-
                     {% endfor %}
-
-
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- end section -->
-
-
 </html>
-
 {% endblock content %}

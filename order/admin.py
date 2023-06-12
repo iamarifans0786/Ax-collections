@@ -30,10 +30,10 @@ class OrderDetailsInline(admin.StackedInline):
 
 @admin.register(Order)
 class orderAdmin(admin.ModelAdmin):
-    list_display = ["user", "address", "mobile", "payment_status", "status"]
+    list_display = ["user", "user_name", "address", "mobile", "order_status", "payment_status"]
     list_filter = ["user__username"]
     search_fields = ["user"]
-    date_hierarchy = "date_time"
+    date_hierarchy = "date"
     actions = (active_status, inactive_status)
     inlines = (OrderDetailsInline,)
 

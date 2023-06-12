@@ -138,7 +138,7 @@
          <div class="col-sm-6 col-lg-3">
             <div class="hover-team">
                <div class="our-team">
-                  <img style="height: 310px;" src="{{team.image.url}}" alt="" />
+                  <img class="our-team-img" src="{{team.image.url}}" alt="" />
                   <ul class="social">
                      <li>
                         <a href="#" class="fa fa-facebook"></a>
@@ -161,7 +161,6 @@
             </div>
          </div>
          {% endfor %}
-
       </div>
    </div>
 </div>
@@ -182,14 +181,13 @@
                      <li data-target="#testimonial_s" data-slide-to="2"></li>
                   </ol>
                   {% for testimonial in testimonials %}
-
                   <div class="carousel-item text-center 
                        {% if testimonial.id == 1 %}
                            active
                        {% endif %}
                            ">
                      <div class="img-box">
-                        <img class=" rounded-circle" style="display: inline;" src=" {{testimonial.image.url}} "
+                        <img class=" rounded-circle about-testiminial-img" src=" {{testimonial.image.url}} "
                            alt="#" />
                      </div>
                      <p>
@@ -197,7 +195,6 @@
                      </p>
                      <p class="name_client"><strong>-{{testimonial.name}}</strong></p>
                   </div>
-
                   {% endfor %}
                </div>
             </div>
@@ -244,7 +241,5 @@
    </div>
 </div>
 <!-- end section -->
-
 </html>
-
 {% endblock content %}

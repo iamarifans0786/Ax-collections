@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-*ot=8b!axmlj^o%nhd3amk$+rm8w!t-n9b$c0%v(kah42-4sb#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     "payment",
     "product",
     "user_profile",
-    "homepage",
+    "frontend",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -70,8 +70,11 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "homepage.context_processor.website_setting.website_config",
-                "homepage.context_processor.navigation_categories.navigation_categories_config",
+                "frontend.context_processor.website_setting.website_config",
+                "frontend.context_processor.navigation_categories.navigation_categories_config",
+                "frontend.context_processor.cart_count.cart_count_config",
+                "frontend.context_processor.wishlist_count.wishlist_count_config",
+                
             ],
         },
     },

@@ -29,31 +29,36 @@
                     <div class="row no-gutters list-top-bar">
                         <div class="mb-2 col-12 col-sm-4 text-center text-sm-left">
                             <ul class="nav nav-tabs shop-view-box">
-
                                 {% if products %}
-
                                 <li>
                                     <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i
                                             class="fa fa-th"></i>
                                     </a>
                                 </li>
-
                                 {% endif %}
-
                             </ul>
                         </div>
+
+                        {% if products %}
+
                         <div class="mb-2 col-12 col-sm-8 text-center text-sm-right">
-                            <div class="toolbar-sorter-right d-md-flex align-items-center">
-                                <span>Sort by </span>
-                                <select class="wide">
-                                    <option data-display="Select">Nothing</option>
-                                    <option value="1">Popularity</option>
-                                    <option value="2">High Price → High Price</option>
-                                    <option value="3">Low Price → High Price</option>
-                                    <option value="4">Best Selling</option>
-                                </select>
-                            </div>
+                            <form method="get">
+                                <div class="toolbar-sorter-right d-md-flex align-items-center">
+                                    <select class="wide" name="sorting">
+                                        <option selected>Sort by</option>
+                                        <option value="default">Default</option>
+                                        <option value="high">High Price → High Price</option>
+                                        <option value="low">Low Price → High Price</option>
+                                    </select>
+                                    <span>
+                                        <button type="submit" class="ml-md-2 btn btn-dark ">submit</button>
+                                    </span>
+                                </div>
+                            </form>
                         </div>
+
+                        {% endif %}
+
                     </div>
                     <div class="row no-gutters main-categorie">
                         <div class="tab-content">
@@ -66,10 +71,12 @@
                                         <div class="product-item-info">
                                             <div class="product-item-photo">
                                                 <div class="item-gallery">
-                                                    <a href="{% url 'product_detail' product_slug=product.slug %}"> <img class="product-list-img" style="height: 400px;"
+                                                    <a href="{% url 'product_detail' product_slug=product.slug %}"> <img
+                                                            class="product-list-img" style="height: 400px;"
                                                             src=" {{product.cover_image.url}} " alt="" /> </a>
                                                     <div class="share-button">
-                                                        <a href="#" class="no_wishlist" data-toggle="tooltip"
+                                                        <a href="{% url 'AddToWishList' product_slug=product.slug %}"
+                                                            class="no_wishlist" data-toggle="tooltip"
                                                             data-placement="left" title="Add to WishList"> <span
                                                                 class="icon icon-heart"></span>
                                                         </a>

@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
-
-
 <!-- revolution slider -->
 <div class="banner-slider">
     <!--SLIDER AREA START-->
@@ -13,9 +10,7 @@
         <!-- START REVOLUTION SLIDER 5.3.0.2 fullwidth mode -->
         <div id="rev_slider_486_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.3.0.2">
             <ul>
-
                 {% for slider in sliders %}
-
                 <!-- SLIDE  -->
                 <li data-index="rs-1687" data-transition="parallaxvertical" data-slotamount="default"
                     data-hideafterloop="0" data-hideslideonmobile="off" data-easein="default" data-easeout="default"
@@ -70,7 +65,6 @@
                         </div>
                     </div>
                 </li>
-
                 {% endfor %}
             </ul>
             <div class="tp-bannertimer tp-bottom" style="height: 5px; background-color: rgba(36, 187, 201, 1);">
@@ -201,14 +195,13 @@
                             {% for product_category in product_categories %}
                             <li>
                                 <span class="product_img">
-                                    <img class="img-responsive product-category-img" style="height: 450px;"
+                                    <img class="img-responsive product-category-img"
                                         src=" {{ product_category.image.url }} " alt="#" />
                                 </span>
                                 <a href="{% url 'product_page' product_category_slug=product_category.slug %}">
                                     <span class="product_head"> {{ product_category.name }} </span></a>
                             </li>
                             {% endfor %}
-
                         </ul>
                     </div>
                 </div>
@@ -237,12 +230,11 @@
                                         <div class="carousel-item active">
                                             <div class="row">
                                                 {% for fashion_product in fashion_product_one %}
-
                                                 <div class="col-md-6">
                                                     <div class="product_blog">
                                                         <div class="product_img">
                                                             <label class="product_label new_pro">{{ fashion_product.brand.name }}</label>
-                                                            <img class="fashion-product-img" style="height: 400px;"
+                                                            <img class="fashion-product-img"
                                                                 src=" {{fashion_product.cover_image.url}} " alt="#" />
                                                         </div>
                                                         <div class="product_cont">
@@ -262,19 +254,17 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 {% endfor %}
                                             </div>
                                         </div>
                                         <div class="carousel-item">
                                             <div class="row">
                                                 {% for fashion_product in fashion_product_two %}
-
                                                 <div class="col-md-6">
                                                     <div class="product_blog">
                                                         <div class="product_img">
                                                             <label class="product_label new_pro">{{ fashion_product.brand.name }}</label>
-                                                            <img class="fashion-product-img" style="height: 400px;"
+                                                            <img class="fashion-product-img"
                                                                 src=" {{fashion_product.cover_image.url}} " alt="#" />
                                                         </div>
                                                         <div class="product_cont">
@@ -292,9 +282,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
                                                 {% endfor %}
-
                                             </div>
                                         </div>
                                     </div>
@@ -325,7 +313,6 @@
     </div>
 </div>
 <!-- end section -->
-
 <!-- section -->
 <div class="section layout_padding dark_bg">
     <div class="container white_bg box_shadow">
@@ -342,14 +329,13 @@
                             <li data-target="#testimonial_s" data-slide-to="2"></li>
                         </ol>
                         {% for testimonial in testimonials %}
-
                         <div class="carousel-item text-center 
                         {% if testimonial.id == 1 %}
                             active
                         {% endif %}
                             ">
                             <div class="img-box">
-                                <img class=" rounded-circle" style="display: inline;" src=" {{testimonial.image.url}} "
+                                <img class=" rounded-circle about-testiminial-img" src=" {{testimonial.image.url}} "
                                     alt="#" />
                             </div>
                             <p>
@@ -357,7 +343,6 @@
                             </p>
                             <p class="name_client"><strong>-{{testimonial.name}}</strong></p>
                         </div>
-
                         {% endfor %}
                     </div>
                 </div>
@@ -382,7 +367,7 @@
             <div class="col-md-6 blog_layout margin_bottom_30">
                 <div class="blog_inner blog_list">
                     <div class="blog_featured_img">
-                        <img style="height: 350px; width: 100%;" class="img-responsive" src="{{blog.image.url}}" alt="#" />
+                        <img class="img-responsive home-blog-img" src="{{blog.image.url}}" alt="#" />
                         <div class="post_information">
                             <div class="post_info_inner">
                                 <ul>
@@ -403,14 +388,11 @@
                 </div>
             </div>
             {% endfor %}
-
             <!-- end blog section -->
-
         </div>
     </div>
 </div>
 <!-- end section -->
-
 <!-- section -->
 <div class="section layout_padding">
     <div class="container">
@@ -421,11 +403,9 @@
                         <li class="theme_bg">
                             <div class="cont_deal">
                                 <p class="head">
-
                                     {% if product_tags.0 %}
                                     {{ product_tags.0.name }}
                                     {% endif %}
-
                                 </p>
                                 <p>Sed ut perspiciatis unde omnis iste natus error sit volup tatem accus antium</p>
                                 <p><a class="readmore_bt" href="#">
@@ -469,6 +449,4 @@
     </div>
 </div>
 <!-- end section -->
-
-
 {% endblock content %}

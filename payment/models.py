@@ -3,15 +3,13 @@ from order.models import Order
 
 
 class Payment(models.Model):
-    STATUS_CHOICE = (
-        ("Successfull", "Successfull"),
-        ("Pending", "Pending"),
-        ("Processing", "Processing"),
-        ("Failed", "Failed"),
-    )
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    transaction_id = models.CharField(max_length=20)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICE)
+    payment_id = models.CharField(max_length=255, null=True, blank=True)
+    payment_status = models.CharField(max_length=255, null=True, blank=True)
+    payment_method = models.CharField(max_length=255, null=True, blank=True)
+    created_at = models.CharField(max_length=255, null=True, blank=True)
+    amount = models.CharField(max_length=255, null=True, blank=True)
+ 
     
     def __str__(self):
-        return self.transaction_id
+        return str(self.payment_id)

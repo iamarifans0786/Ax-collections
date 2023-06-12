@@ -70,17 +70,20 @@
                                 <ul>
 
                                     {% if request.user.is_authenticated %}
-                                    <li>
-                                        <a href="#">Profile</a>
+                                    <li class="mr-4">
+                                        <a href="{% url 'OrderView' %}">Orders</a>
                                     </li>
-                                    <li class="ml-5">
+                                    <li>
+                                        <a href=" {% url 'UserProfileView' %} ">Profile</a>
+                                    </li>
+                                    <li class="ml-4">
                                         <a href="{% url 'logout' %}">Logout</a>
                                     </li>
                                     {% else %}
                                     <li>
                                         <a href="{% url 'LoginView' %}">Login</a>
                                     </li>
-                                    <li  class="ml-5">
+                                    <li class="ml-4">
                                         <a href="{% url 'RegisterView' %}">Register</a>
                                     </li>
                                     {% endif %}
@@ -102,7 +105,7 @@
                         <div class="full">
                             <div class="center-desk">
                                 <div class="logo">
-                                    <a href="index-2.html">
+                                    <a href="{% url 'home_page' %}">
                                         <img src=" {{ website_setting.logo.url }} " alt="#" />
                                     </a>
                                 </div>
@@ -112,13 +115,13 @@
                     <div class="col-lg-9">
                         <div class="search_style">
                             <div class="top_search_bar">
-                                <form action="#">
+                                <form action="{% url 'product_page' %}" method="get">
                                     <fieldset>
                                         <div class="field">
-                                            <input placeholder="Find Products &nbsp;.&nbsp;.&nbsp;.&nbsp;."
-                                                type="email" />
+                                            <input placeholder="Search Product...." type="text"
+                                                value="{{request.GET.search}}" name="search" />
                                             <div class="search_catry_bt">
-                                                <button class="submit_search">Search</button>
+                                                <button type="submit" class="submit_search">Search</button>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -173,7 +176,7 @@
                                         </li>
 
                                         <li>
-                                            <a href="#">
+                                            <a href="{% url 'blog_page' %}">
                                                 Blog
                                             </a>
                                         </li>
@@ -189,13 +192,10 @@
                             <div class="right_cart_section">
                                 <ul class="cart_icons">
 
-                                    <li><a href="shop-cart.html"><i class="fa fa-heart-o"></i> 0</a></li>
-                                    <li><a href="shop-cart.html"><i class="fa fa-shopping-bag"></i>0</a></li>
-                                </ul>
-                                <ul class="cart_update">
-                                    <li>Your cart<br />
-                                        <span>₹ 0</span>
-                                    </li>
+                                    <li><a href="{% url 'MyWishListView' %}"><i class="fa fa-heart-o"></i>
+                                            {{ wishlist_count }}</a></li>
+                                    <li><a href="{% url 'MyCartView' %}"><i class="fa fa-shopping-bag"></i>
+                                            {{ cart_count}}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -254,13 +254,13 @@
                             <div class="ul_list_f_menu">
                                 <ul>
                                     <li><a href=" {% url 'about_page' %} ">&gt; About</a></li>
-                                    <li><a href="#">&gt; FAQ</a></li>
+                                    <li><a href="{% url 'FAQsView' %}">&gt; FAQ</a></li>
                                     <li><a href=" {% url 'contact_page' %} ">&gt; Contact us</a></li>
                                 </ul>
                                 <ul>
                                     <li><strong>Account</strong></li>
-                                    <li><a href="#">&gt; My Account</a></li>
-                                    <li><a href="#">&gt; Order</a></li>
+                                    <li><a href="{% url 'UserProfileView' %}">&gt; My Profile</a></li>
+                                    <li><a href="{% url 'OrderView' %}">&gt; Orders</a></li>
                                     <li><a href="#">&gt; Wishlist</a></li>
                                 </ul>
                                 <ul>
@@ -445,7 +445,7 @@
 
             var image = 'images/marker_red.png';
             var beachMarker = new google.maps.Marker({
-                position: { lat: 40.645037, lng: -73.880224 },
+                position: { lat: 24.2182, lng: 83.0346 },
                 map: map,
                 icon: image
             });
