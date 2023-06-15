@@ -233,7 +233,8 @@
                                                 <div class="col-md-6">
                                                     <div class="product_blog">
                                                         <div class="product_img">
-                                                            <label class="product_label new_pro">{{ fashion_product.brand.name }}</label>
+                                                            <label class="product_label new_pro">{{
+                                                                fashion_product.brand.name }}</label>
                                                             <img class="fashion-product-img"
                                                                 src=" {{fashion_product.cover_image.url}} " alt="#" />
                                                         </div>
@@ -263,7 +264,8 @@
                                                 <div class="col-md-6">
                                                     <div class="product_blog">
                                                         <div class="product_img">
-                                                            <label class="product_label new_pro">{{ fashion_product.brand.name }}</label>
+                                                            <label class="product_label new_pro">{{
+                                                                fashion_product.brand.name }}</label>
                                                             <img class="fashion-product-img"
                                                                 src=" {{fashion_product.cover_image.url}} " alt="#" />
                                                         </div>
@@ -382,7 +384,7 @@
                         <h6 class="post_author_name">Posted by {{ blog.auther }} </h6>
                         <p> {{blog.sub_title}} </p>
                         <div class="bottom_section">
-                            <a class="main_bt" href="#">Read More &gt;</a>
+                            <a class="main_bt" href="{% url 'blog_detail' blog_slug=blog.slug %}">Read More &gt;</a>
                         </div>
                     </div>
                 </div>

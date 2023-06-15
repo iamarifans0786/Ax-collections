@@ -37,9 +37,3 @@ class orderAdmin(admin.ModelAdmin):
     actions = (active_status, inactive_status)
     inlines = (OrderDetailsInline,)
 
-
-# @admin.register(OrderDetails)
-# class orderDetailsAdmin(admin.ModelAdmin):
-#     list_display = ["order", "product", "quantity", "price"]
-#     list_filter = ["product"]
-#     search_fields = ["product"]

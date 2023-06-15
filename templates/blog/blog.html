@@ -22,6 +22,7 @@
 <div class="section layout_padding border_bottom_light blog_section">
     <div class="container">
         <div class="row">
+            {% if blogs %}
             <!-- blog section -->
             {% for blog in blogs %}
             <div class="col-md-12 blog_layout margin_bottom_30_all">
@@ -49,6 +50,11 @@
             </div>
             {% endfor %}
             <!-- end blog section -->
+            {% else %}
+            <h1 class="alert bg-info product-404" style="margin: 10px auto;">
+                Blog Not Found
+            </h1>
+            {% endif %}
         </div>
     </div>
 </div>

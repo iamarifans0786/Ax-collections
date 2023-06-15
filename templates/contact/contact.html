@@ -6,7 +6,10 @@
     <div class="container-fuild">
         <div class="row">
             <div class="map_section">
-                <div id="map"></div>
+                <iframe class="w-100"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7277.33993537737!2d83.0294894384071!3d24.218335698033442!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398edaff6267a929%3A0x20892c7bef6dc475!2sRenukoot%20Colony%2C%20Hindalco%20Colony%2C%20Renukoot%2C%20Uttar%20Pradesh%20231217!5e0!3m2!1sen!2sin!4v1686583615522!5m2!1sen!2sin"
+                    width="1365" height="600" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>
@@ -26,7 +29,7 @@
             <div class="col-lg-6 col-md-12">
                 <div class="contact_form">
                     <div class="contact-box">
-                        <form  class="form-horizontal" method="post">
+                        <form class="form-horizontal" method="post">
                             {% csrf_token %}
                             <div class="messages"></div>
                             <div class="row">
@@ -111,5 +114,6 @@
     </div>
 </div>
 <!-- end section -->
+
 </html>
 {% endblock content %}

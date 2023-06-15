@@ -48,15 +48,17 @@ class ProductTags(models.Model):
 
 
 class Product(models.Model):
-    product_category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
+    product_category = models.ForeignKey(
+        ProductCategory, on_delete=models.CASCADE, related_name="product_category"
+    )
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE,related_name="product_brand")
     name = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, null=True, blank=True)
     cover_image = models.ImageField(upload_to="products")
     price = models.DecimalField(max_digits=7, decimal_places=2)
     description = models.TextField()
-    variation = models.ManyToManyField(ProductVariation)
-    tags = models.ManyToManyField(ProductTags)
+    variation = models.ManyToManyField(ProductVariation, related_name="product_variations")
+    tags = models.ManyToManyField(ProductTags,related_name="product_tags")
     stock = models.IntegerField(default=1)
     status = models.BooleanField(default=True)
     show_homepage = models.BooleanField(default=False)

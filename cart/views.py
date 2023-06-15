@@ -41,7 +41,7 @@ class AddToCartView(View):
         cart.quantity = quantity
         cart.save()
 
-        return redirect("product_detail", product_slug=product.slug)
+        return redirect("MyCartView")
 
 
 @method_decorator(login_required, name="dispatch")
@@ -49,7 +49,9 @@ class MyCartView(View):
     """For My Cart Page"""
 
     def get(self, request):
-        cart_products = Cart.objects.filter(user=request.user)
+        cart_products = Cart.objects.prefetch_related("product").filter(
+            user=request.user
+        )
         sub_total = 0
         shipping = 50
         for cart_product in cart_products:
@@ -120,13 +122,15 @@ class RemoveWishListItem(View):
 
 
 class ThankYouView(View):
-    """ Thank you page for redirect success """
+    """Thank you page for redirect success"""
+
     def get(self, request):
         return render(request, "thank-you.html")
 
 
 class ErrorPage(View):
-    """ Page Not Found page for redirect any error occur """
+    """Page Not Found page for redirect any error occur"""
+
     def get(self, request):
         return render(request, "404.html")
 
@@ -164,7 +168,6 @@ class CheckoutView(View):
         return render(request, self.template_name, context)
 
     def post(self, request):
-        print(request.POST)
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         cart_products = Cart.objects.filter(user=request.user)
@@ -183,7 +186,6 @@ class CheckoutView(View):
         receipt = f"order_rcptid{request.user.id}"
         data = {"amount": grand_total, "currency": "INR", "receipt": receipt}
         payment = client.order.create(data=data)
-        print(payment)
         if payment.get("id"):
             context = {
                 "order_id": payment["id"],

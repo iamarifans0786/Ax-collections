@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from product.models import Product, ProductVariation
-from datetime import datetime
 
 
 class Order(models.Model):
@@ -12,7 +11,7 @@ class Order(models.Model):
         ("canceled", "canceled"),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateTimeField(default=datetime.now())
+    date = models.DateTimeField(auto_now=True)
     user_name = models.CharField(max_length=255)
     address = models.TextField()
     mobile = models.CharField(max_length=13, null=True)

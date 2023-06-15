@@ -18,3 +18,4 @@ urlpatterns = [
         name="product_detail",
     ),
 ]
+ 

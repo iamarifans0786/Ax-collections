@@ -16,6 +16,7 @@ class PaymentSuccessView(View):
         first_name = request.POST.get("first_name")
         last_name = request.POST.get("last_name")
         address = request.POST.get("address")
+        mobile = request.POST.get("mobile")
         cartProducts = Cart.objects.filter(user=request.user)
         if cartProducts:
             order = Order.objects.create(
@@ -23,7 +24,7 @@ class PaymentSuccessView(View):
                 user_name=f"{first_name} {last_name}",
                 address=address,
                 razor_pay_order_id=razorpay_order_id,
-                mobile=None,
+                mobile=mobile,
             )
             for cartProduct in cartProducts:
                 OrderDetails.objects.create(
@@ -40,22 +41,25 @@ class PaymentSuccessView(View):
 
 @csrf_exempt
 def RazorpayWebhook(request):
-    requestBody = json.load(request.body.decode("utf-8"))
-    print(requestBody)
-    payload = requestBody["payload"] 
+    requestBody = json.loads(request.body.decode("utf-8"))
+    payload = requestBody["payload"]
     if payload["payment"]:
         order_id = payload["payment"]["entity"]["order_id"]
-        try:
+        if order_id:
             order = Order.objects.get(razor_pay_order_id=order_id)
-            payment = Payment.objects.get_or_create(order=order)
-            payment.payment_id = payload["payment"]["entity"]["id"]
-            payment.payment_status = payload["payment"]["entity"]["status"]
-            payment.payment_method = payload["payment"]["entity"]["method"]
-            payment.created_at = payload["payment"]["entity"]["created_at"]
-            payment.amount = payload["payment"]["entity"]["amount"]
+            payment = Payment.objects.create(
+                order=order,
+                payment_id=payload["payment"]["entity"]["id"],
+                payment_status=payload["payment"]["entity"]["status"],
+                payment_method=payload["payment"]["entity"]["method"],
+                created_at=payload["payment"]["entity"]["created_at"],
+                amount=(payload["payment"]["entity"]["amount"]) / 100,
+            )
             payment.save()
+            print(order.payment_status)
             order.payment_status = True
             order.save()
+            print("Payment Created Sucessfull")
             return JsonResponse({"message": "Payment Sucessfull"})
-        except:
-            return JsonResponse({"message": "failed"})
+        print("Error")
+        return JsonResponse({"message": "failed"})

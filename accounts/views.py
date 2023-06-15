@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
 from user_profile.models import UserProfile
 from order.models import Order, OrderDetails
@@ -8,6 +10,7 @@ from django.views import View
 from accounts.forms import (
     UserAuthenticationForm,
     CustomUserCreationForm,
+    CustomChangePasswordForm,
     UserForm,
     UserProfileForm,
 )
@@ -66,10 +69,11 @@ class RegisterView(View):
 
 @method_decorator(login_required, name="dispatch")
 class UserProfileView(View):
-    """User Prifile View For Update Details"""
+    """User Prifile View For Update profile Details and change password"""
 
     form_class = UserForm
     profile_form_class = UserProfileForm
+    change_password_form_class = CustomChangePasswordForm
     template_name = "account/profile.html"
 
     def get(self, request):
@@ -77,10 +81,12 @@ class UserProfileView(View):
         profile_details = UserProfile.objects.get(user=request.user)
         user_form = self.form_class(instance=user)
         user_profile_form = self.profile_form_class(instance=user.user_profile)
+        change_password_form = self.change_password_form_class(user)
         context = {
             "user_form": user_form,
             "user_profile_form": user_profile_form,
             "profile_pic": profile_details.profile_image,
+            "change_password_form": change_password_form,
         }
         return render(request, self.template_name, context)
 
@@ -88,14 +94,26 @@ class UserProfileView(View):
         user = User.objects.get(id=request.user.id)
         user_form = self.form_class(request.POST, instance=user)
         user_profile_form = self.profile_form_class(
-            request.POST, instance=user.user_profile
+            request.POST, request.FILES, instance=user.user_profile
         )
+        change_password_form = self.change_password_form_class(
+            request.user, request.POST
+        )
+        """profile updation"""
         if user_form.is_valid() and user_profile_form.is_valid():
             user_form.save()
             user_profile_form.save()
+            return redirect("UserProfileView")
+        """Change Password"""
+        if change_password_form.is_valid():
+            change_password_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Your password was successfully updated!")
+            return redirect("home_page")
         context = {
             "user_form": user_form,
             "user_profile_form": user_profile_form,
+            "change_password_form": change_password_form,
         }
         return render(request, self.template_name, context)
 
@@ -114,7 +132,11 @@ class OrderDetailView(View):
     """class for complate detail of order products"""
 
     def get(self, request, order_id):
-        order_details = OrderDetails.objects.filter(order_id=order_id)
+        order_details = (
+            OrderDetails.objects.prefetch_related("product")
+            .select_related("order")
+            .filter(order_id=order_id)
+        )
         return render(
             request,
             "account/order-history-products.html",

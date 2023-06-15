@@ -37,14 +37,17 @@ INSTALLED_APPS = [
     "order",
     "payment",
     "product",
-    "user_profile",
     "frontend",
+    "user_profile",
+    "rest_framework",
+    "rest_framework.authtoken",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [
@@ -74,7 +77,6 @@ TEMPLATES = [
                 "frontend.context_processor.navigation_categories.navigation_categories_config",
                 "frontend.context_processor.cart_count.cart_count_config",
                 "frontend.context_processor.wishlist_count.wishlist_count_config",
-                
             ],
         },
     },
